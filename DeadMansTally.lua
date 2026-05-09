@@ -20,6 +20,18 @@ local function FillDefaults(tab)
     end
 end
 
+local function FillAllDefaults(tab, defaults)
+    for k, v in pairs(defaults) do
+        if (tab[k] == null) then
+            if (type(v) == "table") then
+                tab[k] = ZO_DeepTableCopy(v)
+            else
+                tab[k] = v
+            end
+        end
+    end
+end
+
 local function Initialize()
     DeadMansTallySavedVariables = DeadMansTallySavedVariables or {}
     DMT.packedSVs = DeadMansTallySavedVariables
@@ -31,18 +43,24 @@ local function Initialize()
 
     local accName = GetUnitDisplayName("player")
     if (not DMT.packedSVs[world][accName]) then
-        DMT.packedSVs[world][accName] = {
-            includeInAll = true,
-            foreverDeaths = {},
-            currentDeaths = {},
-        }
+        DMT.packedSVs[world][accName] = {}
     end
+
+    FillAllDefaults(DMT.packedSVs[world][accName], {
+        includeInAll = true,
+        show = true,
+        x = GuiRoot:GetWidth() * 2 / 3,
+        y = GuiRoot:GetHeight() / 2,
+        foreverDeaths = {},
+        currentDeaths = {},
+    })
 
     FillDefaults(DMT.packedSVs[world][accName].foreverDeaths)
     FillDefaults(DMT.packedSVs[world][accName].currentDeaths)
 
     DMT.InitializeDataStore()
     DMT.InitializeCore()
+    DMT.InitializeUI()
 end
 
 

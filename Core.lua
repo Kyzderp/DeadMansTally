@@ -19,9 +19,10 @@ local function SaveDeathSub(subtable, name)
     subtable[name] = subtable[name] + 1
 end
 
-local function SaveDeath(type, name)
-    SaveDeathSub(DMT.svs.foreverDeaths[type], name)
-    SaveDeathSub(DMT.svs.currentDeaths[type], name)
+local function SaveDeath(tagType, name)
+    SaveDeathSub(DMT.svs.foreverDeaths[tagType], name)
+    SaveDeathSub(DMT.svs.currentDeaths[tagType], name)
+    DMT.UpdateAll()
 end
 
 

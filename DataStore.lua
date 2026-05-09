@@ -25,21 +25,24 @@ local function Split(str)
     end
     return tab
 end
-DMT.Split = Split
+-- DMT.Split = Split
 
 
 ---------------------------------------------------------------------
 --[[
 ["NA Megaserver"] = {
     ["@Kyzeragon"] = {
+        show = true,
+        x = 100,
+        y = 100,
         includeInAll = true,
         foreverDeaths = {
             ungroupedplayer = "",
             group = "",
-            playerpet = "",
-            boss = "",
             companion = "",
             groupcompanion = "",
+            playerpet = "",
+            boss = "",
         },
         currentDeaths = {
             ungroupedplayer = "",
@@ -61,9 +64,8 @@ end
 
 -- Before logout, convert all tables back to string storage
 -- The only data that should've gotten changed is current server + account
-local function SaveAll()
+local function SaveCurrent()
     local accData = DMT.packedSVs[GetWorldName()][GetUnitDisplayName("player")]
-    accData.includeInAll = DMT.svs.includeInAll
     SaveSubtable(DMT.svs.foreverDeaths, accData.foreverDeaths)
     SaveSubtable(DMT.svs.currentDeaths, accData.currentDeaths)
 end
@@ -80,18 +82,34 @@ end
 local function LoadCurrent()
     local result = {}
     local accData = DMT.packedSVs[GetWorldName()][GetUnitDisplayName("player")]
-    result.includeInAll = accData.includeInAll
     result.foreverDeaths = LoadSubtable(accData.foreverDeaths)
     result.currentDeaths = LoadSubtable(accData.currentDeaths)
     return result
 end
 
+---------------------------------------------------------------------
+-- Lazy loading for other servers / accounts
+local function LoadOthers()
+    if (DMT.othersSVs) then return end
+
+    DMT.othersSVs = {}
+    for serverName, serverData in pairs(DMT.packedSVs) do
+        DMT.othersSVs[serverName] = {}
+        for accName, accData in pairs(serverData) do
+            if (accData.includeInAll and (serverName ~= GetWorldName() or accName ~= GetUnitDisplayName("player"))) then -- Do not include current account's data, it's added separately
+                DMT.othersSVs[serverName][accName] = {}
+                DMT.othersSVs[serverName][accName].foreverDeaths = LoadSubtable(accData.foreverDeaths)
+            end
+        end
+    end
+end
+DMT.LoadOthers = LoadOthers
 
 function DMT.InitializeDataStore()
-    ZO_PreHook("ReloadUI", SaveAll)
-    ZO_PreHook("Logout", SaveAll)
-    ZO_PreHook("SetCVar", SaveAll)
-    ZO_PreHook("Quit", SaveAll)
+    ZO_PreHook("ReloadUI", SaveCurrent)
+    ZO_PreHook("Logout", SaveCurrent)
+    ZO_PreHook("SetCVar", SaveCurrent)
+    ZO_PreHook("Quit", SaveCurrent)
 
     DMT.svs = LoadCurrent()
 end
