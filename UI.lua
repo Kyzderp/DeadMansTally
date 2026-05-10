@@ -30,6 +30,13 @@ local showing = {
     },
 }
 
+local currServer = 1
+local SERVERS = {
+    [1] = {displayName = "all servers", texture = "all.dds"}, -- will include PTS, but whatev
+    [2] = {displayName = "NA Megaserver", texture = "NA.dds"},
+    [3] = {displayName = "EU Megaserver", texture = "EU.dds"},
+}
+
 ---------------------------------------------------------------------
 function DMT.SavePosition()
     currSVs.x = DMTTally:GetLeft()
@@ -70,6 +77,10 @@ local function UpdateButtons()
 
     DMTTallyButtonsAllSession:SetTexture(session and "/esoui/art/buttons/radiobuttonup.dds" or "/esoui/art/buttons/radiobuttondown.dds")
     DMTTallyButtonsRefresh:SetHidden(not session)
+    DMTTallyButtonsServer:SetHidden(session)
+    if (not session) then
+        DMTTallyButtonsServer:SetTexture("DeadMansTally/art/" .. SERVERS[currServer].texture)
+    end
 end
 
 local truncatedText = {} -- caching, how much does it matter?
@@ -81,7 +92,7 @@ local function TruncateText(orig)
     local text = orig
     DMTDummyText:SetWidth(300)
     DMTDummyText:SetText(text)
-    if (DMTDummyText:GetTextWidth() <= 160) then
+    if (DMTDummyText:GetTextWidth() <= 150) then
         truncatedText[orig] = text
         return text
     end
@@ -89,7 +100,7 @@ local function TruncateText(orig)
     for i = 1, #orig do
         DMTDummyText:SetWidth(300)
         DMTDummyText:SetText(text)
-        if (DMTDummyText:GetTextWidth() <= 150) then -- Slightly shorter to fit the ellipsis
+        if (DMTDummyText:GetTextWidth() <= 140) then -- Slightly shorter to fit the ellipsis
             text = text .. "..."
             truncatedText[orig] = text
             return text
@@ -113,13 +124,17 @@ local function UpdateAll()
         table.insert(tablesToTally, DMT.svs.currentDeaths)
     else
         DMT.LoadOthers()
-        if (currSVs.includeInAll) then
+        if (currSVs.includeInAll and (currServer == 1 or GetWorldName() == SERVERS[currServer].displayName)) then
             table.insert(tablesToTally, DMT.svs.foreverDeaths)
         end
         -- TODO: server toggle
-        for _, serverData in pairs(DMT.othersSVs) do
-            for _, accData in pairs(serverData) do
-                table.insert(tablesToTally, accData.foreverDeaths)
+        for serverName, serverData in pairs(DMT.othersSVs) do
+            if (currServer == 1
+                or (currServer == 2 and serverName == "NA Megaserver")
+                or (currServer == 3 and serverName == "EU Megaserver")) then
+                for _, accData in pairs(serverData) do
+                    table.insert(tablesToTally, accData.foreverDeaths)
+                end
             end
         end
     end
@@ -167,6 +182,9 @@ local function UpdateAll()
     local cappedHeight = (#sorted > CAP_LINES) and CAP_LINES*19 or DMTTallyNames:GetTextHeight()
     DMTTallyScrollContainer:SetHeight(cappedHeight)
     DMTTally:SetHeight(cappedHeight + 52)
+
+    DMTTally:ClearAnchors()
+    DMTTally:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, currSVs.x, currSVs.y)
 end
 DMT.UpdateAll = UpdateAll
 
@@ -179,6 +197,14 @@ end
 
 function DMT.OnSessionToggled()
     session = not session
+    UpdateAll()
+end
+
+function DMT.OnServerCycled()
+    currServer = currServer + 1
+    if (currServer > 3) then
+        currServer = 1
+    end
     UpdateAll()
 end
 
