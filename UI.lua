@@ -69,6 +69,7 @@ local function UpdateButtons()
     end
 
     DMTTallyButtonsAllSession:SetTexture(session and "/esoui/art/buttons/radiobuttonup.dds" or "/esoui/art/buttons/radiobuttondown.dds")
+    DMTTallyButtonsRefresh:SetHidden(not session)
 end
 
 local truncatedText = {} -- caching, how much does it matter?
@@ -163,7 +164,7 @@ local function UpdateAll()
 
     local CAP_LINES = 12
     -- local cappedHeight = (#sortedNames > CAP_LINES) and CAP_LINES*25.5 or DMTTallyNames:GetTextHeight()
-    local cappedHeight = (#sorted > CAP_LINES) and CAP_LINES*25.5 or DMTTallyNames:GetTextHeight()
+    local cappedHeight = (#sorted > CAP_LINES) and CAP_LINES*19 or DMTTallyNames:GetTextHeight()
     DMTTallyScrollContainer:SetHeight(cappedHeight)
     DMTTally:SetHeight(cappedHeight + 52)
 end

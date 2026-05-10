@@ -1,6 +1,6 @@
 <GuiXml>
     <Controls>
-        <Label name="DMTDummyText" font="ZoFontGame" hidden="true"></Label>
+        <Label name="DMTDummyText" font="ZoFontGameSmall" hidden="true"></Label>
         <TopLevelControl name="DMTContainer" mouseEnabled="false" movable="false">
             <OnInitialized>
                 HUD_SCENE:AddFragment(ZO_SimpleSceneFragment:New(self))
@@ -23,7 +23,7 @@
 
                                 <Texture name="$(parent)Companion" textureFile="/esoui/art/mappins/activecompanion_pin.dds" tier="HIGH" mouseEnabled="true" movable="false">
                                     <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOM"/>
-                                    <Dimensions x="20" y="20"/>
+                                    <Dimensions x="18" y="18"/>
                                     <OnMouseUp>DeadMansTally.OnToggleClicked(self, "companion")</OnMouseUp>
                                     <OnMouseEnter>
                                         ZO_Tooltips_ShowTextTooltip(self, LEFT, "Toggle whether to include your own companions' deaths in the tally")
@@ -32,7 +32,7 @@
                                 </Texture>
                                 <Texture name="$(parent)Group" textureFile="/esoui/art/tutorial/gamepad/gp_overview_group.dds" tier="HIGH" mouseEnabled="true" movable="false">
                                     <Anchor point="RIGHT" relativeTo="$(parent)Companion" relativePoint="LEFT"/>
-                                    <Dimensions x="20" y="20"/>
+                                    <Dimensions x="18" y="18"/>
                                     <OnMouseUp>DeadMansTally.OnToggleClicked(self, "group")</OnMouseUp>
                                     <OnMouseEnter>
                                         ZO_Tooltips_ShowTextTooltip(self, LEFT, "Toggle whether to include grouped deaths, including your own, in the tally")
@@ -41,7 +41,7 @@
                                 </Texture>
                                 <Texture name="$(parent)Player" textureFile="/esoui/art/menubar/gamepad/gp_playermenu_icon_character.dds" tier="HIGH" mouseEnabled="true" movable="false">
                                     <Anchor point="RIGHT" relativeTo="$(parent)Group" relativePoint="LEFT"/>
-                                    <Dimensions x="20" y="20"/>
+                                    <Dimensions x="16" y="16"/>
                                     <OnMouseUp>DeadMansTally.OnToggleClicked(self, "ungroupedplayer")</OnMouseUp>
                                     <OnMouseEnter>
                                         ZO_Tooltips_ShowTextTooltip(self, LEFT, "Toggle whether to include your own deaths, while not grouped, in the tally")
@@ -51,7 +51,7 @@
 
                                 <Texture name="$(parent)GroupCompanion" textureFile="/esoui/art/companion/gamepad/gp_category_u30_allies.dds" tier="HIGH" mouseEnabled="true" movable="false">
                                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOM"/>
-                                    <Dimensions x="20" y="20"/>
+                                    <Dimensions x="18" y="18"/>
                                     <OnMouseUp>DeadMansTally.OnToggleClicked(self, "groupcompanion")</OnMouseUp>
                                     <OnMouseEnter>
                                         ZO_Tooltips_ShowTextTooltip(self, LEFT, "Toggle whether to include other players' companions' deaths in the tally")
@@ -60,7 +60,7 @@
                                 </Texture>
                                 <Texture name="$(parent)PlayerPet" textureFile="/esoui/art/treeicons/gamepad/gp_store_indexicon_vanitypets.dds" tier="HIGH" mouseEnabled="true" movable="false">
                                     <Anchor point="LEFT" relativeTo="$(parent)GroupCompanion" relativePoint="RIGHT"/>
-                                    <Dimensions x="20" y="20"/>
+                                    <Dimensions x="18" y="18"/>
                                     <OnMouseUp>DeadMansTally.OnToggleClicked(self, "playerpet")</OnMouseUp>
                                     <OnMouseEnter>
                                         ZO_Tooltips_ShowTextTooltip(self, LEFT, "Toggle whether to include your summons' deaths in the tally")
@@ -69,7 +69,7 @@
                                 </Texture>
                                 <Texture name="$(parent)Boss" textureFile="/esoui/art/icons/mapkey/mapkey_groupboss.dds" tier="HIGH" mouseEnabled="true" movable="false">
                                     <Anchor point="LEFT" relativeTo="$(parent)PlayerPet" relativePoint="RIGHT"/>
-                                    <Dimensions x="20" y="20"/>
+                                    <Dimensions x="18" y="18"/>
                                     <OnMouseUp>DeadMansTally.OnToggleClicked(self, "boss")</OnMouseUp>
                                     <OnMouseEnter>
                                         ZO_Tooltips_ShowTextTooltip(self, LEFT, "Toggle whether to include boss deaths in the tally")
@@ -125,14 +125,14 @@
                             <Dimensions x="202" y="60"/>
                             <Anchor point="TOPRIGHT" relativeTo="$(parent)Header" relativePoint="BOTTOMRIGHT"/>
                         </Control>
-                        <Label name="$(parent)Count" font="ZoFontGame" color="FFFFFF" text="420&#13;&#10;3&#13;&#10;1&#13;&#10;1" horizontalAlignment="RIGHT" wrapMode="TRUNCATE">
+                        <Label name="$(parent)Count" font="ZoFontGameSmall" color="FFFFFF" text="420&#13;&#10;3&#13;&#10;1&#13;&#10;1" horizontalAlignment="RIGHT" wrapMode="TRUNCATE">
                             <Dimensions x="80"/>
                             <OnInitialized>
                                 self:SetParent(GetControl("DMTTallyScrollContainerScrollChild"))
                                 self:SetAnchor(TOPRIGHT, GetControl("DMTTallyScrollContainerScrollChild"), TOPRIGHT, 0, 6)
                             </OnInitialized>
                         </Label>
-                        <Label name="$(parent)Names" font="ZoFontGame" color="FFFFFF" text="Test Name&#13;&#10;Another Test Name&#13;&#10;Third Test Name&#13;&#10;Last Test" horizontalAlignment="LEFT" wrapMode="TRUNCATE">
+                        <Label name="$(parent)Names" font="ZoFontGameSmall" color="FFFFFF" text="Test Name&#13;&#10;Another Test Name&#13;&#10;Third Test Name&#13;&#10;Last Test" horizontalAlignment="LEFT" wrapMode="TRUNCATE">
                             <Dimensions x="184"/>
                             <Anchor point="TOPRIGHT" relativeTo="$(parent)Count" relativePoint="TOPRIGHT"/>
                             <OnInitialized>
