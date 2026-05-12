@@ -223,6 +223,7 @@ function DMT.InitializeUI()
 
     DMTTally:ClearAnchors()
     DMTTally:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, currSVs.x, currSVs.y)
+    DMTTally:SetHidden(not currSVs.show)
 
     UpdateAll()
 end
