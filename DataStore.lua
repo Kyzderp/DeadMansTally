@@ -1,6 +1,38 @@
 local DMT = DeadMansTally
 
 ---------------------------------------------------------------------
+-- Chunks because strings can get too long for SVs
+local function Chunk(str)
+    local MAX_LEN = 1800
+    if (string.len(str) <= MAX_LEN) then
+        return str
+    end
+
+    local tab = {}
+    local startIndex = 1
+    while true do
+        local endIndex = math.min(startIndex + MAX_LEN, string.len(str))
+        table.insert(tab, string.sub(str, startIndex, endIndex))
+        startIndex = endIndex + 1
+        if (startIndex > string.len(str)) then
+            break
+        end
+    end
+    return tab
+end
+
+local function Unchunk(strOrTable)
+    if (type(strOrTable) == "string") then
+        return strOrTable
+    elseif (type(strOrTable) == "table") then
+        return table.concat(strOrTable, "")
+    else
+        return ""
+    end
+end
+
+
+---------------------------------------------------------------------
 -- Concats table to :; separated string
 local function Concat(tab)
     local tempTable = {}
@@ -58,7 +90,7 @@ end
 
 local function SaveSubtable(from, to)
     for type, tab in pairs(from) do
-        to[type] = Concat(tab)
+        to[type] = Chunk(Concat(tab))
     end
 end
 
@@ -74,7 +106,7 @@ end
 local function LoadSubtable(tab)
     local result = {}
     for type, str in pairs(tab) do
-        result[type] = Split(str)
+        result[type] = Unchunk(Split(str))
     end
     return result
 end
