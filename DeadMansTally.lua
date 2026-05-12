@@ -6,9 +6,6 @@ local DMT = DeadMansTally
 
 
 ---------------------------------------------------------------------
-local defaultOptions = {}
-
----------------------------------------------------------------------
 -- Initialize
 ---------------------------------------------------------------------
 local function FillDefaults(tab)
@@ -49,6 +46,7 @@ local function Initialize()
     FillAllDefaults(DMT.packedSVs[world][accName], {
         includeInAll = true,
         show = true,
+        locked = false,
         x = GuiRoot:GetWidth() * 2 / 3,
         y = GuiRoot:GetHeight() / 2,
         foreverDeaths = {},
@@ -61,6 +59,7 @@ local function Initialize()
     DMT.InitializeDataStore()
     DMT.InitializeCore()
     DMT.InitializeUI()
+    DMT.CreateSettingsMenu()
 end
 
 

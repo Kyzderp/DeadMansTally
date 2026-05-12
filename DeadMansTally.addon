@@ -20,3 +20,4 @@ DataStore.lua
 Core.lua
 UI.lua
 UI.xml
+Settings.lua

@@ -53,6 +53,20 @@ function DMT.Show()
     DMTTally:SetHidden(false)
 end
 
+
+---------------------------------------------------------------------
+function DMT.Lock()
+    DMTTally:SetMovable(false)
+    currSVs.locked = true
+end
+
+function DMT.Unlock()
+    DMTTally:SetMovable(true)
+    currSVs.locked = false
+end
+
+
+---------------------------------------------------------------------
 SLASH_COMMANDS["/dmt"] = function()
     if (currSVs.show) then
         DMT.Hide()
@@ -224,6 +238,7 @@ function DMT.InitializeUI()
     DMTTally:ClearAnchors()
     DMTTally:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, currSVs.x, currSVs.y)
     DMTTally:SetHidden(not currSVs.show)
+    DMTTally:SetMovable(not currSVs.locked)
 
     UpdateAll()
 end
