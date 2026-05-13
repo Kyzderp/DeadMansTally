@@ -106,7 +106,7 @@ end
 local function LoadSubtable(tab)
     local result = {}
     for type, str in pairs(tab) do
-        result[type] = Unchunk(Split(str))
+        result[type] = Split(Unchunk(str))
     end
     return result
 end
