@@ -57,6 +57,8 @@ local function Initialize()
     FillDefaults(DMT.packedSVs[world][accName].foreverDeaths)
     FillDefaults(DMT.packedSVs[world][accName].currentDeaths)
 
+    ZO_CreateStringId("SI_BINDING_NAME_DMT_TOGGLE_UI", "Toggle showing tally")
+
     DMT.InitializeDataStore()
     DMT.InitializeCore()
     DMT.InitializeUI()

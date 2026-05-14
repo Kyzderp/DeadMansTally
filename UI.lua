@@ -53,6 +53,14 @@ function DMT.Show()
     DMTTally:SetHidden(false)
 end
 
+function DMT.ToggleUI()
+    if (currSVs.show) then
+        DMT.Hide()
+    else
+        DMT.Show()
+    end
+end
+
 
 ---------------------------------------------------------------------
 function DMT.Lock()

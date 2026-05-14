@@ -16,6 +16,7 @@
 ## SavedVariables: DeadMansTallySavedVariables
 
 DeadMansTally.lua
+Bindings.xml
 DataStore.lua
 Core.lua
 UI.lua

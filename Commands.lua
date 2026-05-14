@@ -38,11 +38,7 @@ SLASH_COMMANDS["/dmt"] = function(argstring)
 
     ------------
     if (args[1] == "tally") then
-        if (currSVs.show) then
-            DMT.Hide()
-        else
-            DMT.Show()
-        end
+        DMT.ToggleUI()
 
     elseif (args[1] == "lock") then
         DMT.Lock()
