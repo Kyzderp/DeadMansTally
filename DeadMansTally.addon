@@ -21,3 +21,4 @@ Core.lua
 UI.lua
 UI.xml
 Settings.lua
+Commands.lua

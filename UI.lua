@@ -67,16 +67,6 @@ end
 
 
 ---------------------------------------------------------------------
-SLASH_COMMANDS["/dmt"] = function()
-    if (currSVs.show) then
-        DMT.Hide()
-    else
-        DMT.Show()
-    end
-end
-
-
----------------------------------------------------------------------
 local function UpdateButtons()
     for tagType, options in pairs(showing) do
         local button = DMTTallyButtons:GetNamedChild(options.buttonName)
