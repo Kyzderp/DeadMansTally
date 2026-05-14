@@ -41,6 +41,22 @@ function DMT.CreateSettingsMenu()
             end,
             width = "full",
         },
+        {
+            type = "slider",
+            name = "Scale",
+            tooltip = "The scale of the window. Note: this is just a simple scaling, so larger scale values may look blurry",
+            min = 0,
+            max = 2,
+            step = 0.05,
+            default = 1,
+            width = "full",
+            getFunc = function() return currSVs.scale end,
+            setFunc = function(value)
+                currSVs.scale = value
+                DMT.UpdateAll()
+            end,
+            disabled = function() return not Crutch.savedOptions.dreadsailreef.alertStaticStacks end,
+        },
     }
 
     LAM:RegisterAddonPanel("DeadMansTallyOptions", panelData)

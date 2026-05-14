@@ -199,6 +199,8 @@ local function UpdateAll()
 
     DMTTally:ClearAnchors()
     DMTTally:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, currSVs.x, currSVs.y)
+
+    DMTTally:SetScale(currSVs.scale)
 end
 DMT.UpdateAll = UpdateAll
 

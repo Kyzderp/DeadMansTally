@@ -47,6 +47,7 @@ local function Initialize()
         includeInAll = true,
         show = true,
         locked = false,
+        scale = 1,
         x = GuiRoot:GetWidth() * 2 / 3,
         y = GuiRoot:GetHeight() / 2,
         foreverDeaths = {},
