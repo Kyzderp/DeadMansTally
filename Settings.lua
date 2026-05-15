@@ -40,6 +40,7 @@ function DMT.CreateSettingsMenu()
                 DMT.UpdateAll()
             end,
             width = "full",
+            requiresReload = true,
         },
         {
             type = "slider",
@@ -49,13 +50,13 @@ function DMT.CreateSettingsMenu()
             max = 2,
             step = 0.05,
             default = 1,
-            width = "full",
             getFunc = function() return currSVs.scale end,
             setFunc = function(value)
                 currSVs.scale = value
                 DMT.UpdateAll()
+                DMT.Show()
             end,
-            disabled = function() return not Crutch.savedOptions.dreadsailreef.alertStaticStacks end,
+            width = "full",
         },
     }
 

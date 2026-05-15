@@ -12,17 +12,16 @@ end
 
 ---------------------------------------------------------------------
 local function PrintUsage()
-    if (ZO_IsConsoleOrGameCoreUI()) then
-        DMT.msg([[Usage:
+    DMT.msg([[Usage:
 |cAAAAAA/dmt tally - toggles the UI
 |cAAAAAA/dmt lock
 |cAAAAAA/dmt unlock
 |cAAAAAA/dmt settings
 |cAAAAAA/dmt reset]])
-    else
+end
 
 ---------------------------------------------------------------------
-SLASH_COMMANDS["/dmt"] = function(argstring)
+SLASH_COMMANDS["/dmt"] = function(argString)
     local args = {}
     for word in string.gmatch(argString, "%S+") do
         table.insert(args, word)
