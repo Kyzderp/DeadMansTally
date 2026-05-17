@@ -44,16 +44,17 @@ function DMT.CreateSettingsMenu()
         },
         {
             type = "slider",
-            name = "Scale",
-            tooltip = "The scale of the window. Note: this is just a simple scaling, so larger scale values may look blurry",
+            name = "Scale %",
+            tooltip = "The scale % of the window. Note: this is just a simple scaling, so larger scale values may look blurry",
             min = 0,
-            max = 2,
-            step = 0.05,
-            default = 1,
-            getFunc = function() return currSVs.scale end,
+            max = 200,
+            step = 5,
+            default = 100,
+            getFunc = function() return currSVs.scale * 100 end,
             setFunc = function(value)
-                currSVs.scale = value
+                currSVs.scale = value / 100
                 DMT.UpdateAll()
+                DMTContainer:SetHidden(false)
                 DMT.Show()
             end,
             width = "full",
