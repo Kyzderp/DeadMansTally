@@ -11,9 +11,31 @@ end
 
 
 ---------------------------------------------------------------------
+local function GetTally()
+    local str = ""
+    for _, entry in ipairs(DMT.GetSorted()) do
+        local currString = string.format("%s: %d ", entry.name, entry.num)
+        if (string.len(str) + string.len(currString) > ZO_ChatWindowTextEntryEditBox:GetMaxInputChars()) then
+            return str
+        end
+        str = str .. currString
+    end
+
+    return str
+end
+
+local function PrintTally()
+    if (KEYBOARD_CHAT_SYSTEM) then
+        KEYBOARD_CHAT_SYSTEM:StartTextEntry(GetTally())
+    end
+end
+
+
+---------------------------------------------------------------------
 local function PrintUsage()
     DMT.msg([[Usage:
 |cAAAAAA/dmt tally - toggles the UI
+|cAAAAAA/dmt print - starts a chat message of the death tally with the current filters
 |cAAAAAA/dmt lock
 |cAAAAAA/dmt unlock
 |cAAAAAA/dmt settings
@@ -38,6 +60,9 @@ SLASH_COMMANDS["/dmt"] = function(argString)
     ------------
     if (args[1] == "tally") then
         DMT.ToggleUI()
+
+    elseif (args[1] == "print") then
+        PrintTally()
 
     elseif (args[1] == "lock") then
         DMT.Lock()

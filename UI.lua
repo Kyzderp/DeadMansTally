@@ -124,11 +124,8 @@ local function TruncateText(orig)
     return text
 end
 
-local function UpdateAll()
-    -- TODO: session
-    UpdateButtons()
-    DMTTallyHeader:SetText(session and "Session Deaths" or "All-time Multi-acc Deaths")
-
+local sorted = {}
+local function UpdateSorted()
     local totalTally = {}
     local tablesToTally = {}
 
@@ -139,7 +136,6 @@ local function UpdateAll()
         if (currSVs.includeInAll and (currServer == 1 or GetWorldName() == SERVERS[currServer].displayName)) then
             table.insert(tablesToTally, DMT.svs.foreverDeaths)
         end
-        -- TODO: server toggle
         for serverName, serverData in pairs(DMT.othersSVs) do
             if (currServer == 1
                 or (currServer == 2 and serverName == "NA Megaserver")
@@ -167,7 +163,7 @@ local function UpdateAll()
     end
 
     -- Order them
-    local sorted = {}
+    ZO_ClearTable(sorted)
     for name, num in pairs(totalTally) do
         table.insert(sorted, {name = name, num = num, display = TruncateText(name)})
     end
@@ -177,6 +173,17 @@ local function UpdateAll()
         end
         return a.num > b.num
     end)
+end
+
+function DMT.GetSorted()
+    return sorted
+end
+
+local function UpdateAll()
+    UpdateSorted()
+
+    UpdateButtons()
+    DMTTallyHeader:SetText(session and "Session Deaths" or "All-time Multi-acc Deaths")
 
     -- Concat them
     local nameColumn = ""
