@@ -1,6 +1,6 @@
 DeadMansTally = {
     name = "DeadMansTally",
-    version = "0.0.0"
+    version = "1.0.0-beta1"
 }
 local DMT = DeadMansTally
 

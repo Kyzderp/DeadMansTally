@@ -15,6 +15,12 @@ function DMT.CreateSettingsMenu()
     local currSVs = DMT.packedSVs[GetWorldName()][GetUnitDisplayName("player")]
     local optionsData = {
         {
+            type = "description",
+            title = nil,
+            text = "See |c99FF99/dmt|r for more commands and functions.",
+            width = "full",
+        },
+        {
             type = "checkbox",
             name = "Lock UI",
             tooltip = "Lock panel to prevent re-positioning",
@@ -28,19 +34,6 @@ function DMT.CreateSettingsMenu()
                 end
             end,
             width = "full",
-        },
-        {
-            type = "checkbox",
-            name = "Include this account in all-time",
-            tooltip = string.format("Include the current account + server (%s, %s) in the all-time multi-account tally", GetUnitDisplayName("player"), GetWorldName()),
-            default = true,
-            getFunc = function() return currSVs.includeInAll end,
-            setFunc = function(value)
-                currSVs.includeInAll = value
-                DMT.UpdateAll()
-            end,
-            width = "full",
-            requiresReload = true,
         },
         {
             type = "slider",
@@ -58,6 +51,19 @@ function DMT.CreateSettingsMenu()
                 DMT.Show()
             end,
             width = "full",
+        },
+        {
+            type = "checkbox",
+            name = "Include this account in all-time",
+            tooltip = string.format("Include the current account + server (%s, %s) in the all-time multi-account tally", GetUnitDisplayName("player"), GetWorldName()),
+            default = true,
+            getFunc = function() return currSVs.includeInAll end,
+            setFunc = function(value)
+                currSVs.includeInAll = value
+                DMT.UpdateAll()
+            end,
+            width = "full",
+            requiresReload = true,
         },
     }
 

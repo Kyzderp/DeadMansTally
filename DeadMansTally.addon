@@ -7,8 +7,8 @@
 ## Title: Dead Man's Tally
 ## Description: Tracks you and your group members' death counts. Across accounts. Forever.
 ## Author: Kyzeragon
-## Version: 0.0.0
-## AddOnVersion: 0
+## Version: 1.0.0-beta1
+## AddOnVersion: 90
 ## APIVersion: 101049
 
 ## DependsOn: LibAddonMenu-2.0>=41
