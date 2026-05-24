@@ -11,7 +11,8 @@
 ## AddOnVersion: 90
 ## APIVersion: 101049
 
-## DependsOn: LibAddonMenu-2.0>=41
+## DependsOn: LibAddonMenu-2.0>=43
+## OptionalDependsOn: LibFilteredChatPanel
 
 ## SavedVariables: DeadMansTallySavedVariables
 

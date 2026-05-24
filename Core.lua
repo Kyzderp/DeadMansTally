@@ -19,7 +19,16 @@ local function SaveDeathSub(subtable, name)
     subtable[name] = subtable[name] + 1
 end
 
+local dmtLFCPFilter
 local function SaveDeath(tagType, name)
+    if (name == "") then
+        name = "[Empty name]"
+    end
+
+    if (dmtLFCPFilter) then
+        dmtLFCPFilter:AddMessage(string.format("%s death: %s", tagType, name))
+    end
+
     SaveDeathSub(DMT.svs.foreverDeaths[tagType], name)
     SaveDeathSub(DMT.svs.currentDeaths[tagType], name)
     DMT.UpdateAll()
@@ -65,4 +74,9 @@ end
 
 function DMT.InitializeCore()
     EVENT_MANAGER:RegisterForEvent(DMT.name .. "Death", EVENT_UNIT_DEATH_STATE_CHANGED, OnDeathStateChanged)
+
+    -- Debug chat
+    if (LibFilteredChatPanel) then
+        dmtLFCPFilter = LibFilteredChatPanel:CreateFilter(DMT.name, "/esoui/art/icons/mapkey/mapkey_groupboss.dds", {0.5, 0.5, 0.5}, false)
+    end
 end
