@@ -19,7 +19,7 @@ end
 
 local function FillAllDefaults(tab, defaults)
     for k, v in pairs(defaults) do
-        if (tab[k] == null) then
+        if (tab[k] == nil) then
             if (type(v) == "table") then
                 tab[k] = ZO_DeepTableCopy(v)
             else
